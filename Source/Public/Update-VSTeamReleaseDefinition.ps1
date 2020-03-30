@@ -1,5 +1,5 @@
 function Update-VSTeamReleaseDefinition {
-   [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "Medium", DefaultParameterSetName = 'JSON')]
+   [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium', DefaultParameterSetName = 'JSON')]
    Param(
       [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = 'File')]
       [string] $InFile,
@@ -19,14 +19,13 @@ function Update-VSTeamReleaseDefinition {
       # Bind the parameter to a friendly variable
       $ProjectName = $PSBoundParameters["ProjectName"]
 
-      if ($Force -or $pscmdlet.ShouldProcess('', "Update Release Definition")) {
+      if ($Force -or $pscmdlet.ShouldProcess('', 'Update Release Definition')) {
          # Call the REST API
-
          if ($InFile) {
-            _callAPI -Method Put -ProjectName $ProjectName -SubDomain vsrm -Area Release -Resource definitions -Version $([VSTeamVersions]::Release) -InFile $InFile -ContentType 'application/json' | Out-Null
+            _callAPI -Method Put -ProjectName $ProjectName -SubDomain vsrm -Area Release -Resource definitions -Version $(_getApiVersion Release) -ContentType 'application/json' -InFile $InFile | Out-Null
          }
          else {
-            _callAPI -Method Put -ProjectName $ProjectName -SubDomain vsrm -Area Release -Resource definitions -Version $([VSTeamVersions]::Release) -Body $ReleaseDefinition -ContentType 'application/json' | Out-Null
+            _callAPI -Method Put -ProjectName $ProjectName -SubDomain vsrm -Area Release -Resource definitions -Version $(_getApiVersion Release) -ContentType 'application/json' -Body $ReleaseDefinition | Out-Null
          }
       }
    }
