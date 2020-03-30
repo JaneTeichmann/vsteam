@@ -40,22 +40,21 @@ function Update-VSTeamVariableGroup {
       $ProjectName = $PSBoundParameters["ProjectName"]
 
 
-      if ([string]::IsNullOrWhiteSpace($Body))
-      {
+      if ([string]::IsNullOrWhiteSpace($Body)) {
          $bodyAsHashtable = @{
-         name        = $Name
-         description = $Description
-         variables   = $Variables
-      }
-      if ($(_getApiVersion -Target) -ne "TFS2017") {
-         $Type = $PSBoundParameters['Type']
+            name        = $Name
+            description = $Description
+            variables   = $Variables
+         }
+         if ($(_getApiVersion -Target) -ne "TFS2017") {
+            $Type = $PSBoundParameters['Type']
             $bodyAsHashtable.Add("type", $Type)
 
-         $ProviderData = $PSBoundParameters['ProviderData']
-         if ($null -ne $ProviderData) {
+            $ProviderData = $PSBoundParameters['ProviderData']
+            if ($null -ne $ProviderData) {
                $bodyAsHashtable.Add("providerData", $ProviderData)
+            }
          }
-      }
 
          $body = $bodyAsHashtable | ConvertTo-Json
       }
