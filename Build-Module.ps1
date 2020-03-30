@@ -120,7 +120,7 @@ if ($runTests.IsPresent) {
    }
 
    if ($codeCoverage.IsPresent) {
-      $pesterArgs.CodeCoverage = "$outputDir\*.ps1"
+      $pesterArgs.CodeCoverage = "./Source/**/*.ps1"
       $pesterArgs.CodeCoverageOutputFile = "coverage.xml"
       $pesterArgs.CodeCoverageOutputFileFormat = 'JaCoCo'
    }
