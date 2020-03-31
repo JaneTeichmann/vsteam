@@ -6,7 +6,7 @@ class VSTeamAccessControlEntry : VSTeamLeaf {
    [string]$Descriptor = $null
    [int]$Allow = 0
    [int]$Deny = 0
-   [PSCustomObject]$ExtendedInfo = @{}
+   [PSCustomObject]$ExtendedInfo = @{ }
 
    VSTeamAccessControlEntry (
       [object]$obj
@@ -15,8 +15,7 @@ class VSTeamAccessControlEntry : VSTeamLeaf {
       $this.Allow = $obj.allow
       $this.Deny = $obj.deny
 
-      if ([bool]($obj.PSobject.Properties.name -match "extendedInfo"))
-      {
+      if ([bool]($obj.PSobject.Properties.name -match "extendedInfo")) {
          $this.ExtendedInfo = $obj.extendedInfo
       }
 
